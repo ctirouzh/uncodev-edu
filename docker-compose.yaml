@@ -1,36 +1,26 @@
-version : '3.3'
+version: "3.8"
 
 services:
-  postgres:
+  db:
     image: postgres:14.1-alpine
-    container_name: uncodev-db
     restart: always
-    networks:
-      - backend
-    env_file : 
-      - ./app/config/.env
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     ports:
       - '5432:5432'
     volumes: 
-      - db_data:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
   app:
-    build : app
-    ports : 
-        - 8080:8080
-    networks : 
-        - backend
-    image : app
-    container_name: app
-    depends_on: 
-        postgres: 
-          condition : service_healthy
-
-
-volumes : 
-  db_data : 
-
-networks:
-  backend:
-    driver : bridge
-
-
+    container_name: app-dev
+    image: app-dev
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/app
+    ports:
+      - 4000:4000
+volumes:
+  db:
+    driver: local

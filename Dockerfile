@@ -1,18 +1,15 @@
-FROM golang:alpine
+# Start from golang base image
+FROM golang:alpine as development
 
-Run mkdir -p /var/www
-
-WORKDIR /var/www
-
-# Download Go modules
-COPY go.mod .
-COPY go.sum .
+WORKDIR /app
+# Cache and install dependencies
+COPY go.mod go.sum ./
 RUN go mod download
-
-COPY . /var/www
-
-RUN go build -o app
-
-EXPOSE 8080
-
-ENTRYPOINT ["/var/www/app"]
+# Copy app files
+COPY . .
+# Install Reflex for development
+RUN go install github.com/cespare/reflex@latest
+# Expose port
+EXPOSE 4000
+# Start app
+CMD reflex -g '*.go' go run main.go --start-service
