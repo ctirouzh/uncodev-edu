@@ -1,9 +1,9 @@
 package main
 
 import (
-	"app/config"
-	"app/database"
-	"app/routes"
+	"github.com/uncodev/educational-website-with-golang/config"
+	"github.com/uncodev/educational-website-with-golang/database"
+	"github.com/uncodev/educational-website-with-golang/routes"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )

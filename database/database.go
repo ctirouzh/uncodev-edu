@@ -12,16 +12,13 @@ type Connection struct{
 }
 
 
-
-func Connect(){
-
-	dsn := "postgres://saeed:123456@127.0.0.1:5432/crypto?TimeZone=Asia/Tehran"
-	
+func Connect() *gorm.DB{
+	dsn := "postgres://dev_user:saeedsaeed@postgres:5432/uncodev_db?sslmode=disable"
 	db , err := gorm.Open(postgres.Open(dsn),&gorm.Config{
 		//Logger: logger.Default.LogMode(logger.Silent),
 	})
 	if err!=nil {
 		log.Fatal(err)
 	}
-
+	return db
 }

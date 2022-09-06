@@ -1,8 +1,6 @@
 package helpers
 
 import (
-	"fmt"
-	"strconv"
 	"strings"
 	"math"
 	"math/rand"
